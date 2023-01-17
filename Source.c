@@ -1,12 +1,12 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include <locale.h> //заголовочный файл локализации
-#include <stdio.h> //заголовочный файл для функция ввода/вывода
-#include <stdlib.h> //заголовочный файл стандартной библиотеки
-#include <string.h> //заголовочный фал для работы со строками
-#include <malloc.h> //динамическое выделение и освобождение памяти
-#include <conio.h>//заголовочный файл для создания текстового интерфейса пользователя
+#include <locale.h> //Р·Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» Р»РѕРєР°Р»РёР·Р°С†РёРё
+#include <stdio.h> //Р·Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РґР»СЏ С„СѓРЅРєС†РёСЏ РІРІРѕРґР°/РІС‹РІРѕРґР°
+#include <stdlib.h> //Р·Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» СЃС‚Р°РЅРґР°СЂС‚РЅРѕР№ Р±РёР±Р»РёРѕС‚РµРєРё
+#include <string.h> //Р·Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р» РґР»СЏ СЂР°Р±РѕС‚С‹ СЃРѕ СЃС‚СЂРѕРєР°РјРё
+#include <malloc.h> //РґРёРЅР°РјРёС‡РµСЃРєРѕРµ РІС‹РґРµР»РµРЅРёРµ Рё РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё
+#include <conio.h>//Р·Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РґР»СЏ СЃРѕР·РґР°РЅРёСЏ С‚РµРєСЃС‚РѕРІРѕРіРѕ РёРЅС‚РµСЂС„РµР№СЃР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 
-typedef struct pc //объявление структуры
+typedef struct pc //РѕР±СЉСЏРІР»РµРЅРёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹
 {
 	char manufacturer[20], formfactor[20], typesize[20], color[20], availability[20];
 	int height, dlina;
@@ -14,57 +14,57 @@ typedef struct pc //объявление структуры
 
 }PC;
 
-int zapis(char* filename, PC* comp, int k);//запись в файл
-int chtenie(char* filename);//чтение из файла
-int pechat(PC* comp, int k);//вывод базы данных
-PC sortirovka(PC* comp, int k);//сортировка по цвету
-PC dobavlenie(PC* comp, int k);//добавление корпуса в систему
-int dobavlenie_file(char* filename, PC* comp, int k);//добавление корпуса в файл
+int zapis(char* filename, PC* comp, int k);//Р·Р°РїРёСЃСЊ РІ С„Р°Р№Р»
+int chtenie(char* filename);//С‡С‚РµРЅРёРµ РёР· С„Р°Р№Р»Р°
+int pechat(PC* comp, int k);//РІС‹РІРѕРґ Р±Р°Р·С‹ РґР°РЅРЅС‹С…
+PC sortirovka(PC* comp, int k);//СЃРѕСЂС‚РёСЂРѕРІРєР° РїРѕ С†РІРµС‚Сѓ
+PC dobavlenie(PC* comp, int k);//РґРѕР±Р°РІР»РµРЅРёРµ РєРѕСЂРїСѓСЃР° РІ СЃРёСЃС‚РµРјСѓ
+int dobavlenie_file(char* filename, PC* comp, int k);//РґРѕР±Р°РІР»РµРЅРёРµ РєРѕСЂРїСѓСЃР° РІ С„Р°Р№Р»
 
 int main() {
 	system("chcp 1251");
-	system("cls"); //очищение экрана
-	setlocale(LC_ALL, "RUS");//локализация
-	PC* comp = NULL;//указатель
-	int k;//кол-во корпусов
-	int vibor;//выбор в меню
-	char filename[100];//название файла
+	system("cls"); //РѕС‡РёС‰РµРЅРёРµ СЌРєСЂР°РЅР°
+	setlocale(LC_ALL, "RUS");//Р»РѕРєР°Р»РёР·Р°С†РёСЏ
+	PC* comp = NULL;//СѓРєР°Р·Р°С‚РµР»СЊ
+	int k;//РєРѕР»-РІРѕ РєРѕСЂРїСѓСЃРѕРІ
+	int vibor;//РІС‹Р±РѕСЂ РІ РјРµРЅСЋ
+	char filename[100];//РЅР°Р·РІР°РЅРёРµ С„Р°Р№Р»Р°
 
 
-	//меню
+	//РјРµРЅСЋ
 
 
 	while (1) {
 		system("cls");
-		printf("1 - Добавление Корпуса ПК в базу данных \n"
-			"2 - Запись в файл \n"
-			"3 - Чтение из файла \n"
-			"4 - Вывод информации о Корпусах ПК, занесенных в базу данных \n"
-			"5 - Сортировка Корпусов по цвету \n"
-			"6 - Поиск Корпусов ПК по производителю \n"  
-			"7 - Поиск Корпусов ПК по типоразмеру\n"
-			"8 - Добавление Корпуса ПК в файл \n"
-			"9 - Завершение работы \n");
-		printf("Введите пункт меню: ");
+		printf("1 - Р”РѕР±Р°РІР»РµРЅРёРµ РљРѕСЂРїСѓСЃР° РџРљ РІ Р±Р°Р·Сѓ РґР°РЅРЅС‹С… \n"
+			"2 - Р—Р°РїРёСЃСЊ РІ С„Р°Р№Р» \n"
+			"3 - Р§С‚РµРЅРёРµ РёР· С„Р°Р№Р»Р° \n"
+			"4 - Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РљРѕСЂРїСѓСЃР°С… РџРљ, Р·Р°РЅРµСЃРµРЅРЅС‹С… РІ Р±Р°Р·Сѓ РґР°РЅРЅС‹С… \n"
+			"5 - РЎРѕСЂС‚РёСЂРѕРІРєР° РљРѕСЂРїСѓСЃРѕРІ РїРѕ С†РІРµС‚Сѓ \n"
+			"6 - РџРѕРёСЃРє РљРѕСЂРїСѓСЃРѕРІ РџРљ РїРѕ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЋ \n"  
+			"7 - РџРѕРёСЃРє РљРѕСЂРїСѓСЃРѕРІ РџРљ РїРѕ С‚РёРїРѕСЂР°Р·РјРµСЂСѓ\n"
+			"8 - Р”РѕР±Р°РІР»РµРЅРёРµ РљРѕСЂРїСѓСЃР° РџРљ РІ С„Р°Р№Р» \n"
+			"9 - Р—Р°РІРµСЂС€РµРЅРёРµ СЂР°Р±РѕС‚С‹ \n");
+		printf("Р’РІРµРґРёС‚Рµ РїСѓРЅРєС‚ РјРµРЅСЋ: ");
 		scanf("%d", &vibor);
 		system("cls");
 		switch (vibor) {
 		case 1:
-			printf("Введите количество корпусов:");
+			printf("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РєРѕСЂРїСѓСЃРѕРІ:");
 			scanf("%d", &k);
-			comp = realloc(comp, k * sizeof(PC));//выделение динамической памяти для количества пассажиров
+			comp = realloc(comp, k * sizeof(PC));//РІС‹РґРµР»РµРЅРёРµ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ РїР°РјСЏС‚Рё РґР»СЏ РєРѕР»РёС‡РµСЃС‚РІР° РїР°СЃСЃР°Р¶РёСЂРѕРІ
 			dobavlenie(comp, k);
 			//Print(comp, k);
 			break;
 
 		case 2:
-			printf("Введите имя файла для чтения:");
+			printf("Р’РІРµРґРёС‚Рµ РёРјСЏ С„Р°Р№Р»Р° РґР»СЏ С‡С‚РµРЅРёСЏ:");
 			scanf("%s", &filename);
 			zapis(filename, comp, k);
 			break;
 
 		case 3:
-			printf("Введите имя файла для чтения:");
+			printf("Р’РІРµРґРёС‚Рµ РёРјСЏ С„Р°Р№Р»Р° РґР»СЏ С‡С‚РµРЅРёСЏ:");
 			scanf("%s", &filename);
 			chtenie(filename);
 			system("pause");
@@ -90,7 +90,7 @@ int main() {
 			break;
 
 		case 8:
-			printf("Введите имя файла для чтения:");
+			printf("Р’РІРµРґРёС‚Рµ РёРјСЏ С„Р°Р№Р»Р° РґР»СЏ С‡С‚РµРЅРёСЏ:");
 			scanf("%s", &filename);
 			dobavlenie_file(filename, comp, k);
 			break;
@@ -100,7 +100,7 @@ int main() {
 			break;
 
 		default:
-			puts("Данный выбор невозможно осуществить");
+			puts("Р”Р°РЅРЅС‹Р№ РІС‹Р±РѕСЂ РЅРµРІРѕР·РјРѕР¶РЅРѕ РѕСЃСѓС‰РµСЃС‚РІРёС‚СЊ");
 
 		}
 
@@ -115,7 +115,7 @@ int zapis(char* filename, PC* comp, int k)
 	int i;
 	if ((f = fopen(filename, "wt")) == NULL)
 	{
-		fprintf(stderr, "Файл нельзя открыть для записи\n");
+		fprintf(stderr, "Р¤Р°Р№Р» РЅРµР»СЊР·СЏ РѕС‚РєСЂС‹С‚СЊ РґР»СЏ Р·Р°РїРёСЃРё\n");
 		system("pause");
 		return -1;
 	}
@@ -124,28 +124,28 @@ int zapis(char* filename, PC* comp, int k)
 	{
 		for (i = 0; i < k; i++)
 		{
-			fprintf(f, "%2i. Производитель: %s \nФорм-фактор платы: %s \nТипоразмер: %s \nЦвет: %s \nВысота: %i \nДлина: %i \nШирина: %.1f \nНаличие подсветки и пр.: %s \n", i + 1, comp[i].manufacturer, comp[i].formfactor, comp[i].typesize, comp[i].color, comp[i].height, comp[i].dlina, comp[i].shirina, comp[i].availability);
+			fprintf(f, "%2i. РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊ: %s \nР¤РѕСЂРј-С„Р°РєС‚РѕСЂ РїР»Р°С‚С‹: %s \nРўРёРїРѕСЂР°Р·РјРµСЂ: %s \nР¦РІРµС‚: %s \nР’С‹СЃРѕС‚Р°: %i \nР”Р»РёРЅР°: %i \nРЁРёСЂРёРЅР°: %.1f \nРќР°Р»РёС‡РёРµ РїРѕРґСЃРІРµС‚РєРё Рё РїСЂ.: %s \n", i + 1, comp[i].manufacturer, comp[i].formfactor, comp[i].typesize, comp[i].color, comp[i].height, comp[i].dlina, comp[i].shirina, comp[i].availability);
 			system("pause");
 		}
 		fclose(f);
 		printf("************************************\n"
-			"* Данные успешно записаны в файл *\n"
+			"* Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ Р·Р°РїРёСЃР°РЅС‹ РІ С„Р°Р№Р» *\n"
 			"************************************\n");
 		system("pause");
 	}
 	return 0;
 }
 
-int chtenie(char* filename)//чтение из файла
+int chtenie(char* filename)//С‡С‚РµРЅРёРµ РёР· С„Р°Р№Р»Р°
 {
-	///Чтение файла
-	printf("Начинаем чтение файла\n");
+	///Р§С‚РµРЅРёРµ С„Р°Р№Р»Р°
+	printf("РќР°С‡РёРЅР°РµРј С‡С‚РµРЅРёРµ С„Р°Р№Р»Р°\n");
 	FILE* input;
 	char file[200];
-	input = fopen(filename, "r"); //открытие файла для чтения
-	if (input != NULL) //проверка на существование и открытие файла
+	input = fopen(filename, "r"); //РѕС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р° РґР»СЏ С‡С‚РµРЅРёСЏ
+	if (input != NULL) //РїСЂРѕРІРµСЂРєР° РЅР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ Рё РѕС‚РєСЂС‹С‚РёРµ С„Р°Р№Р»Р°
 	{
-		printf("* Файл успешно открыт. *\n");
+		printf("* Р¤Р°Р№Р» СѓСЃРїРµС€РЅРѕ РѕС‚РєСЂС‹С‚. *\n");
 		while (!feof(input))
 		{
 			fgets(file, 200, input);
@@ -158,54 +158,54 @@ int chtenie(char* filename)//чтение из файла
 	}
 	else
 	{
-		printf("Неудалось открыть файл\n");
+		printf("РќРµСѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»\n");
 		system("pause");
 		return -1;
 	}
-	fclose(input); //закрытие файла
+	fclose(input); //Р·Р°РєСЂС‹С‚РёРµ С„Р°Р№Р»Р°
 	return 0;
 }
 
-PC dobavlenie(PC* comp, int k)//заполнение бд пользователем
+PC dobavlenie(PC* comp, int k)//Р·Р°РїРѕР»РЅРµРЅРёРµ Р±Рґ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
 {
 	for (int i = 0; i < k; i++)
 	{
-		//ввод в систему пассажиров
-		printf("Введите Производителя Корпуса ПК: ");
+		//РІРІРѕРґ РІ СЃРёСЃС‚РµРјСѓ РїР°СЃСЃР°Р¶РёСЂРѕРІ
+		printf("Р’РІРµРґРёС‚Рµ РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ РљРѕСЂРїСѓСЃР° РџРљ: ");
 		scanf("%s", &comp[i].manufacturer);
-		printf("Введите Форм-фактор платы: ");
+		printf("Р’РІРµРґРёС‚Рµ Р¤РѕСЂРј-С„Р°РєС‚РѕСЂ РїР»Р°С‚С‹: ");
 		scanf("%s", &comp[i].formfactor);
-		printf("Введите Типоразмер Корпуса: ");
+		printf("Р’РІРµРґРёС‚Рµ РўРёРїРѕСЂР°Р·РјРµСЂ РљРѕСЂРїСѓСЃР°: ");
 		scanf("%s", &comp[i].typesize);
-		printf("Введите Цвет Корпуса: ");
+		printf("Р’РІРµРґРёС‚Рµ Р¦РІРµС‚ РљРѕСЂРїСѓСЃР°: ");
 		scanf("%s", &comp[i].color);
-		printf("Введите высоту Корпуса ПК в см: ");
+		printf("Р’РІРµРґРёС‚Рµ РІС‹СЃРѕС‚Сѓ РљРѕСЂРїСѓСЃР° РџРљ РІ СЃРј: ");
 		scanf("%i", &comp[i].height);
-		printf("Введите длину Корпуса ПК в см: ");
+		printf("Р’РІРµРґРёС‚Рµ РґР»РёРЅСѓ РљРѕСЂРїСѓСЃР° РџРљ РІ СЃРј: ");
 		scanf("%i", &comp[i].dlina);
-		printf("Введите ширину Корпуса ПК в см: ");
+		printf("Р’РІРµРґРёС‚Рµ С€РёСЂРёРЅСѓ РљРѕСЂРїСѓСЃР° РџРљ РІ СЃРј: ");
 		scanf("%f", &comp[i].shirina);
-		printf("Введите наличие подсветки Корпуса ПК и пр.: ");
+		printf("Р’РІРµРґРёС‚Рµ РЅР°Р»РёС‡РёРµ РїРѕРґСЃРІРµС‚РєРё РљРѕСЂРїСѓСЃР° РџРљ Рё РїСЂ.: ");
 		scanf("%s", &comp[i].availability);
 		printf("\n");
 	}
 	return*comp;
 }
 
-int pechat(PC* comp, int k)//вывод всех элементов
+int pechat(PC* comp, int k)//РІС‹РІРѕРґ РІСЃРµС… СЌР»РµРјРµРЅС‚РѕРІ
 {
 	for (int i = 0; i < k; i++)
-		printf("%2i. Производитель: %s \nФорм-фактор платы: %s \nТипоразмер: %s \nЦвет: %s \nВысота: %i \nДлина: %i \nШирина: %.1f \nНаличие подсветки и пр.: %s \n", i + 1, comp[i].manufacturer, comp[i].formfactor, comp[i].typesize, comp[i].color, comp[i].height, comp[i].dlina, comp[i].shirina, comp[i].availability);
-	//вывод пассажиров
+		printf("%2i. РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊ: %s \nР¤РѕСЂРј-С„Р°РєС‚РѕСЂ РїР»Р°С‚С‹: %s \nРўРёРїРѕСЂР°Р·РјРµСЂ: %s \nР¦РІРµС‚: %s \nР’С‹СЃРѕС‚Р°: %i \nР”Р»РёРЅР°: %i \nРЁРёСЂРёРЅР°: %.1f \nРќР°Р»РёС‡РёРµ РїРѕРґСЃРІРµС‚РєРё Рё РїСЂ.: %s \n", i + 1, comp[i].manufacturer, comp[i].formfactor, comp[i].typesize, comp[i].color, comp[i].height, comp[i].dlina, comp[i].shirina, comp[i].availability);
+	//РІС‹РІРѕРґ РїР°СЃСЃР°Р¶РёСЂРѕРІ
 	system("pause");
 	return 0;
 }
 
-PC sortirovka(PC* comp, int k)//сортировка
+PC sortirovka(PC* comp, int k)//СЃРѕСЂС‚РёСЂРѕРІРєР°
 {
 	struct pc tmp;
 	printf("\n");
-	printf("\t\t\t » Сортировка по цвету корпуса \n");
+	printf("\t\t\t В» РЎРѕСЂС‚РёСЂРѕРІРєР° РїРѕ С†РІРµС‚Сѓ РєРѕСЂРїСѓСЃР° \n");
 	for (int i = 0; i < k; i++)
 	{
 		for (int j = 0; j < k - i - 1; j++)
@@ -223,63 +223,63 @@ PC sortirovka(PC* comp, int k)//сортировка
 
 int dobavlenie_file(char* filename, PC* comp, int k)
 {
-	FILE* add; //указатель на файл
-	if ((add = fopen(filename, "a")) == NULL) //проверка на возможность открыть файл для добавления данных
+	FILE* add; //СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С„Р°Р№Р»
+	if ((add = fopen(filename, "a")) == NULL) //РїСЂРѕРІРµСЂРєР° РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РґР°РЅРЅС‹С…
 	{
-		fprintf(stderr, "Невозможно открыть файл для записи элемента.\n");
+		fprintf(stderr, "РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» РґР»СЏ Р·Р°РїРёСЃРё СЌР»РµРјРµРЅС‚Р°.\n");
 		return -1;
 	}
 	else
 	{
 		for (int i = k + 1; i < k + 2; i++)
 		{
-			//ввод корпусов. в файл
-			printf("Введите Производителя Корпуса ПК: ");
+			//РІРІРѕРґ РєРѕСЂРїСѓСЃРѕРІ. РІ С„Р°Р№Р»
+			printf("Р’РІРµРґРёС‚Рµ РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ РљРѕСЂРїСѓСЃР° РџРљ: ");
 			scanf("%s", &comp[i].manufacturer);
 			printf("\n");
-			printf("Введите Форм-фактор платы: ");
+			printf("Р’РІРµРґРёС‚Рµ Р¤РѕСЂРј-С„Р°РєС‚РѕСЂ РїР»Р°С‚С‹: ");
 			scanf("%s", &comp[i].formfactor);
 			printf("\n");
-			printf("Введите Типоразмер Корпуса: ");
+			printf("Р’РІРµРґРёС‚Рµ РўРёРїРѕСЂР°Р·РјРµСЂ РљРѕСЂРїСѓСЃР°: ");
 			scanf("%s", &comp[i].typesize);
 			printf("\n");
-			printf("Введите Цвет Корпуса: ");
+			printf("Р’РІРµРґРёС‚Рµ Р¦РІРµС‚ РљРѕСЂРїСѓСЃР°: ");
 			scanf("%s", &comp[i].color);
 			printf("\n");
-			printf("Введите высоту Корпуса ПК в см: ");
+			printf("Р’РІРµРґРёС‚Рµ РІС‹СЃРѕС‚Сѓ РљРѕСЂРїСѓСЃР° РџРљ РІ СЃРј: ");
 			scanf("%i", &comp[i].height);
 			printf("\n");
-			printf("Введите длину Корпуса ПК в см: ");
+			printf("Р’РІРµРґРёС‚Рµ РґР»РёРЅСѓ РљРѕСЂРїСѓСЃР° РџРљ РІ СЃРј: ");
 			scanf("%i", &comp[i].dlina);
 			printf("\n");
-			printf("Введите ширину Корпуса ПК в см: ");
+			printf("Р’РІРµРґРёС‚Рµ С€РёСЂРёРЅСѓ РљРѕСЂРїСѓСЃР° РџРљ РІ СЃРј: ");
 			scanf("%f", &comp[i].shirina);
 			printf("\n");
-			printf("Введите наличие подсветки Корпуса ПК и пр.: ");
+			printf("Р’РІРµРґРёС‚Рµ РЅР°Р»РёС‡РёРµ РїРѕРґСЃРІРµС‚РєРё РљРѕСЂРїСѓСЃР° РџРљ Рё РїСЂ.: ");
 			scanf("%s", &comp[i].availability);
 			printf("\n");
 			printf("*************************************\n"
 				"*                                   *\n"
-				"* Данные успешно добавлены в файл.  *\n"
+				"* Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅС‹ РІ С„Р°Р№Р».  *\n"
 				"*                                   *\n"
 				"*************************************\n");
 		}
-		fprintf(add, "Производитель: %s \nФорм-фактор: %s \nТипоразмер: %s \nЦвет: %s \nВысота: %i \nДлина: %i \nШирина: %.1f \nНаличие подсветки и пр.: %s", comp[k + 1].manufacturer, comp[k + 1].formfactor, comp[k + 1].typesize, comp[k + 1].color, comp[k + 1].height, comp[k + 1].dlina, comp[k + 1].shirina, comp[k + 1].availability);
+		fprintf(add, "РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊ: %s \nР¤РѕСЂРј-С„Р°РєС‚РѕСЂ: %s \nРўРёРїРѕСЂР°Р·РјРµСЂ: %s \nР¦РІРµС‚: %s \nР’С‹СЃРѕС‚Р°: %i \nР”Р»РёРЅР°: %i \nРЁРёСЂРёРЅР°: %.1f \nРќР°Р»РёС‡РёРµ РїРѕРґСЃРІРµС‚РєРё Рё РїСЂ.: %s", comp[k + 1].manufacturer, comp[k + 1].formfactor, comp[k + 1].typesize, comp[k + 1].color, comp[k + 1].height, comp[k + 1].dlina, comp[k + 1].shirina, comp[k + 1].availability);
 	}
 
-	fclose(add); //закрытие файла
+	fclose(add); //Р·Р°РєСЂС‹С‚РёРµ С„Р°Р№Р»Р°
 	return 1;
 }
 
 int poisk_manufacturer(PC* comp, int k) {
 	system("cls");
 	char A[21];
-	printf("Введите название производителя корпуса: ");
+	printf("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЏ РєРѕСЂРїСѓСЃР°: ");
 	rewind(stdin);
 	gets(A);
 	for (int p = 0; p < k; p++) {
 		if (strcmp(comp[p].manufacturer, A) == 0) {
-			printf("%i|Производитель:%s\nФорм-фактор:%s\nТипоразмер:%s\nЦвет:%s\nВысота:%i\nДлина:%i\nШирина:%.1f\nНаличие подсветки и пр.:%s\n", p + 1, comp[p].manufacturer, comp[p].formfactor, comp[p].typesize, comp[p].color, comp[p].height, comp[p].dlina, comp[p].shirina, comp[p].availability);
+			printf("%i|РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊ:%s\nР¤РѕСЂРј-С„Р°РєС‚РѕСЂ:%s\nРўРёРїРѕСЂР°Р·РјРµСЂ:%s\nР¦РІРµС‚:%s\nР’С‹СЃРѕС‚Р°:%i\nР”Р»РёРЅР°:%i\nРЁРёСЂРёРЅР°:%.1f\nРќР°Р»РёС‡РёРµ РїРѕРґСЃРІРµС‚РєРё Рё РїСЂ.:%s\n", p + 1, comp[p].manufacturer, comp[p].formfactor, comp[p].typesize, comp[p].color, comp[p].height, comp[p].dlina, comp[p].shirina, comp[p].availability);
 
 		}
 	}
@@ -289,12 +289,12 @@ int poisk_manufacturer(PC* comp, int k) {
 int poisk_typesize(PC* comp, int k) {
 	system("cls");
 	char B[21];
-	printf("Введите типоразмер корпуса: ");
+	printf("Р’РІРµРґРёС‚Рµ С‚РёРїРѕСЂР°Р·РјРµСЂ РєРѕСЂРїСѓСЃР°: ");
 	rewind(stdin);
 	gets(B);
 	for (int p = 0; p < k; p++) {
 		if (strcmp(comp[p].typesize, B) == 0) {
-			printf("%i|Производитель:%s\nФорм-фактор:%s\nТипоразмер:%s\nЦвет:%s\nВысота:%i\nДлина:%i\nШирина:%.1f\nНаличие подсветки и пр.:%s\n", p + 1, comp[p].manufacturer, comp[p].formfactor, comp[p].typesize, comp[p].color, comp[p].height, comp[p].dlina, comp[p].shirina, comp[p].availability);
+			printf("%i|РџСЂРѕРёР·РІРѕРґРёС‚РµР»СЊ:%s\nР¤РѕСЂРј-С„Р°РєС‚РѕСЂ:%s\nРўРёРїРѕСЂР°Р·РјРµСЂ:%s\nР¦РІРµС‚:%s\nР’С‹СЃРѕС‚Р°:%i\nР”Р»РёРЅР°:%i\nРЁРёСЂРёРЅР°:%.1f\nРќР°Р»РёС‡РёРµ РїРѕРґСЃРІРµС‚РєРё Рё РїСЂ.:%s\n", p + 1, comp[p].manufacturer, comp[p].formfactor, comp[p].typesize, comp[p].color, comp[p].height, comp[p].dlina, comp[p].shirina, comp[p].availability);
 
 		}
 	}
