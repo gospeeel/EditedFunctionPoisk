@@ -41,7 +41,7 @@ int main() {
 			"3 - Чтение из файла \n"
 			"4 - Вывод информации о Корпусах ПК, занесенных в базу данных \n"
 			"5 - Сортировка Корпусов по цвету \n"
-			"6 - Поиск Корпусов ПК по производителю \n"  
+			"6 - Поиск Корпусов ПК по производителю \n"
 			"7 - Поиск Корпусов ПК по типоразмеру\n"
 			"8 - Добавление Корпуса ПК в файл \n"
 			"9 - Завершение работы \n");
@@ -49,6 +49,9 @@ int main() {
 		scanf("%d", &vibor);
 		system("cls");
 		switch (vibor) {
+			char A[21];
+			char B[21];
+			int p = 0;
 		case 1:
 			printf("Введите количество корпусов:");
 			scanf("%d", &k);
@@ -80,12 +83,25 @@ int main() {
 			break;
 
 		case 6:
-			poisk_manufacturer(comp, k);
+			printf("Введите название производителя: ");
+			rewind(stdin);
+			gets(A);
+			for (int i = 0; i < k; i++) {
+				p = poisk_manufacturer(comp, k, i, A);
+				if (p != -1) printf("%i|Производитель:%s\nФорм-фактор:%s\nТипоразмер:%s\nЦвет:%s\nВысота:%i\nДлина:%i\nШирина:%.1f\nНаличие подсветки и пр.:%s\n", p + 1, comp[p].manufacturer, comp[p].formfactor, comp[p].typesize, comp[p].color, comp[p].height, comp[p].dlina, comp[p].shirina, comp[p].availability);
+			}
 			system("pause");
+			p = - 1;
 			break;
-		
+
 		case 7:
-			poisk_typesize(comp, k);
+			printf("Введите типоразмер корпуса: ");
+			rewind(stdin);
+			gets(B);
+			for (int i = 0; i < k; i++) {
+				p = poisk_typesize(comp, k, i, B);
+				if (p != -1) printf("%i|Производитель:%s\nФорм-фактор:%s\nТипоразмер:%s\nЦвет:%s\nВысота:%i\nДлина:%i\nШирина:%.1f\nНаличие подсветки и пр.:%s\n", p + 1, comp[p].manufacturer, comp[p].formfactor, comp[p].typesize, comp[p].color, comp[p].height, comp[p].dlina, comp[p].shirina, comp[p].availability);
+			}
 			system("pause");
 			break;
 
@@ -133,7 +149,7 @@ int zapis(char* filename, PC* comp, int k)
 			"************************************\n");
 		system("pause");
 	}
-	return 0;
+	return -1;
 }
 
 int chtenie(char* filename)//чтение из файла
@@ -271,33 +287,15 @@ int dobavlenie_file(char* filename, PC* comp, int k)
 	return 1;
 }
 
-int poisk_manufacturer(PC* comp, int k) {
-	system("cls");
-	char A[21];
-	printf("Введите название производителя корпуса: ");
-	rewind(stdin);
-	gets(A);
-	for (int p = 0; p < k; p++) {
-		if (strcmp(comp[p].manufacturer, A) == 0) {
-			printf("%i|Производитель:%s\nФорм-фактор:%s\nТипоразмер:%s\nЦвет:%s\nВысота:%i\nДлина:%i\nШирина:%.1f\nНаличие подсветки и пр.:%s\n", p + 1, comp[p].manufacturer, comp[p].formfactor, comp[p].typesize, comp[p].color, comp[p].height, comp[p].dlina, comp[p].shirina, comp[p].availability);
-
-		}
+int poisk_manufacturer(PC* comp, int k, int i, char* A) {
+	if (strcmp(comp[i].manufacturer, A) == 0) {
+		return i;
 	}
-	return 0;
+	return -1;
 }
-
-int poisk_typesize(PC* comp, int k) {
-	system("cls");
-	char B[21];
-	printf("Введите типоразмер корпуса: ");
-	rewind(stdin);
-	gets(B);
-	for (int p = 0; p < k; p++) {
-		if (strcmp(comp[p].typesize, B) == 0) {
-			printf("%i|Производитель:%s\nФорм-фактор:%s\nТипоразмер:%s\nЦвет:%s\nВысота:%i\nДлина:%i\nШирина:%.1f\nНаличие подсветки и пр.:%s\n", p + 1, comp[p].manufacturer, comp[p].formfactor, comp[p].typesize, comp[p].color, comp[p].height, comp[p].dlina, comp[p].shirina, comp[p].availability);
-
+int poisk_typesize(PC* comp, int k, int i, char* B) {
+		if (strcmp(comp[i].typesize, B) == 0) {
+			return i;
 		}
-	}
-	return 0;
+	return -1;
 }
-
