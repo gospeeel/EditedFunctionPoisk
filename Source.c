@@ -102,7 +102,7 @@ int main() {
 		}
 		case 7:
 		{printf("Введите типоразмер корпуса: ");
-		scanf("%s", &B);
+		scanf("%s", B);
 		getchar();
 
 		int* index2 = malloc((k + 2) * sizeof(int));
@@ -322,7 +322,7 @@ int* poisk_typesize(PC* comp, int k, char* B, int* index2) {
 	int count_poisk = 1;
 
 	for (int o = 0; o < k + 1; o++)
-		if (strcmp(comp[o].manufacturer, B) == 0) {
+		if (strcmp(comp[o].typesize, B) == 0) {
 			index2[count_poisk] = o;
 			count_poisk++;
 		}
