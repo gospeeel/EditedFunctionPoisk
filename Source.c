@@ -20,6 +20,8 @@ int pechat(PC* comp, int k);//вывод базы данных
 PC sortirovka(PC* comp, int k);//сортировка по цвету
 PC dobavlenie(PC* comp, int k);//добавление корпуса в систему
 int dobavlenie_file(char* filename, PC* comp, int k);//добавление корпуса в файл
+int* poisk_manufacturer(PC* comp, int k, char* A, int* index);
+int* poisk_typesize(PC* comp, int k, char* B, int* index2);
 
 int main() {
 	system("chcp 1251");
@@ -47,6 +49,7 @@ int main() {
 			"9 - Завершение работы \n");
 		printf("Введите пункт меню: ");
 		scanf("%d", &vibor);
+		getchar();
 		system("cls");
 		switch (vibor) {
 			char A[21];
@@ -55,6 +58,7 @@ int main() {
 		case 1:
 			printf("Введите количество корпусов:");
 			scanf("%d", &k);
+			getchar();
 			comp = realloc(comp, k * sizeof(PC));//выделение динамической памяти для количества пассажиров
 			dobavlenie(comp, k);
 			//Print(comp, k);
@@ -83,27 +87,33 @@ int main() {
 			break;
 
 		case 6:
-			printf("Введите название производителя: ");
-			rewind(stdin);
-			gets(A);
-			for (int i = 0; i < k; i++) {
-				p = poisk_manufacturer(comp, k, i, A);
-				if (p != -1) printf("%i|Производитель:%s\nФорм-фактор:%s\nТипоразмер:%s\nЦвет:%s\nВысота:%i\nДлина:%i\nШирина:%.1f\nНаличие подсветки и пр.:%s\n", p + 1, comp[p].manufacturer, comp[p].formfactor, comp[p].typesize, comp[p].color, comp[p].height, comp[p].dlina, comp[p].shirina, comp[p].availability);
-			}
-			system("pause");
-			p = - 1;
-			break;
+		{printf("Введите название производителя: ");
+		scanf("%s", &A);
+		getchar();
 
+		int* index = malloc((k + 2) * sizeof(int));
+		index = poisk_manufacturer(comp, k, A, index);
+
+		for (int i = 1; i < index[0]; i++) {
+			printf("%i|Производитель:%s\nФорм-фактор:%s\nТипоразмер:%s\nЦвет:%s\nВысота:%i\nДлина:%i\nШирина:%.1f\nНаличие подсветки и пр.:%s\n", i + 1, comp[index[i]].manufacturer, comp[index[i]].formfactor, comp[index[i]].typesize, comp[index[i]].color, comp[index[i]].height, comp[index[i]].dlina, comp[index[i]].shirina, comp[index[i]].availability);
+		}
+		system("pause");
+		break;
+		}
 		case 7:
-			printf("Введите типоразмер корпуса: ");
-			rewind(stdin);
-			gets(B);
-			for (int i = 0; i < k; i++) {
-				p = poisk_typesize(comp, k, i, B);
-				if (p != -1) printf("%i|Производитель:%s\nФорм-фактор:%s\nТипоразмер:%s\nЦвет:%s\nВысота:%i\nДлина:%i\nШирина:%.1f\nНаличие подсветки и пр.:%s\n", p + 1, comp[p].manufacturer, comp[p].formfactor, comp[p].typesize, comp[p].color, comp[p].height, comp[p].dlina, comp[p].shirina, comp[p].availability);
-			}
-			system("pause");
-			break;
+		{printf("Введите типоразмер корпуса: ");
+		scanf("%s", &B);
+		getchar();
+
+		int* index2 = malloc((k + 2) * sizeof(int));
+		index2 = poisk_typesize(comp, k, B, index2);
+
+		for (int i = 1; i < index2[0]; i++) {
+			printf("%i|Производитель:%s\nФорм-фактор:%s\nТипоразмер:%s\nЦвет:%s\nВысота:%i\nДлина:%i\nШирина:%.1f\nНаличие подсветки и пр.:%s\n", i + 1, comp[index2[i]].manufacturer, comp[index2[i]].formfactor, comp[index2[i]].typesize, comp[index2[i]].color, comp[index2[i]].height, comp[index2[i]].dlina, comp[index2[i]].shirina, comp[index2[i]].availability);
+		}
+		system("pause");
+		break;
+		}
 
 		case 8:
 			printf("Введите имя файла для чтения:");
@@ -189,20 +199,28 @@ PC dobavlenie(PC* comp, int k)//заполнение бд пользовател
 		//ввод в систему пассажиров
 		printf("Введите Производителя Корпуса ПК: ");
 		scanf("%s", &comp[i].manufacturer);
+		getchar();
 		printf("Введите Форм-фактор платы: ");
 		scanf("%s", &comp[i].formfactor);
+		getchar();
 		printf("Введите Типоразмер Корпуса: ");
 		scanf("%s", &comp[i].typesize);
+		getchar();
 		printf("Введите Цвет Корпуса: ");
 		scanf("%s", &comp[i].color);
+		getchar();
 		printf("Введите высоту Корпуса ПК в см: ");
 		scanf("%i", &comp[i].height);
+		getchar();
 		printf("Введите длину Корпуса ПК в см: ");
 		scanf("%i", &comp[i].dlina);
+		getchar();
 		printf("Введите ширину Корпуса ПК в см: ");
 		scanf("%f", &comp[i].shirina);
+		getchar();
 		printf("Введите наличие подсветки Корпуса ПК и пр.: ");
 		scanf("%s", &comp[i].availability);
+		getchar();
 		printf("\n");
 	}
 	return*comp;
@@ -287,15 +305,28 @@ int dobavlenie_file(char* filename, PC* comp, int k)
 	return 1;
 }
 
-int poisk_manufacturer(PC* comp, int k, int i, char* A) {
-	if (strcmp(comp[i].manufacturer, A) == 0) {
-		return i;
-	}
-	return -1;
-}
-int poisk_typesize(PC* comp, int k, int i, char* B) {
-		if (strcmp(comp[i].typesize, B) == 0) {
-			return i;
+int* poisk_manufacturer(PC* comp, int k, char* A, int* index) {
+	int count_poisk = 1;
+
+	for (int o = 0; o < k + 1; o++)
+		if (strcmp(comp[o].manufacturer, A) == 0) {
+			index[count_poisk] = o;
+			count_poisk++;
 		}
-	return -1;
+	index[0] = count_poisk;
+
+	return index;
+}
+
+int* poisk_typesize(PC* comp, int k, char* B, int* index2) {
+	int count_poisk = 1;
+
+	for (int o = 0; o < k + 1; o++)
+		if (strcmp(comp[o].manufacturer, B) == 0) {
+			index2[count_poisk] = o;
+			count_poisk++;
+		}
+	index2[0] = count_poisk;
+
+	return index2;
 }
